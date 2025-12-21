@@ -44,7 +44,7 @@ try{
       process.env.EMAIL_SECRET,
       {expiresIn:'1h'}
       )
-const link = `http://localhost:8080/user/verify/${token}`;
+const link = `process.env.FRONTEND_DOMAIN/user/verify/${token}`;
 
 
       //Email sender setup
@@ -87,7 +87,7 @@ router.get('/verify/:token',async(req,res,next)=>{
   try{
   const data=jwt.verify(req.params.token,process.env.EMAIL_SECRET);
   await User.findByIdAndUpdate(data.id,{isVerified:true});
- res.redirect('http://localhost:5173/verified');
+ res.redirect('process.env.BACKEND_DOMAIN/verified');
 }catch(err){
    next({status:400,message:'Invalid or Expired Token'});
 }
@@ -141,7 +141,7 @@ router.post('/forget',async (req,res,next)=>{
     process.env.EMAIL_SECRET_FORGET,
    {expiresIn:'1h'}
    )
-   const fLink=`http://localhost:5173/reset/${token}`;
+   const fLink=`process.env.BACKEND_DOMAIN/reset/${token}`;
    const transporter=nodemailer.createTransport({
           host: 'smtp.gmail.com',
           port: 587,        // ✅ change from 465 → 587
