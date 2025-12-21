@@ -5,12 +5,17 @@ const mongoose=require('mongoose');
 const userRouter=require('./routes/user');
 const user=require('./userSchema.js');
 const dotenv=require('dotenv');
+const path=require('path');
 dotenv.config();
+
+
+//path
+app.use(express.static(path.join(__dirname,'../client/dist')));
 
 //CORS Config
 app.use(cors({
-    origin:'http://localhost:5173',
-    methods:['POST',"PUT","DELETE"],
+    origin:'*',
+    methods:['GET','POST',"PUT","DELETE"],
     credentials:true
 }))
 
@@ -32,6 +37,10 @@ main()
  async function main(){
  await mongoose.connect(process.env.MONGODB_URL);
 }
+
+app.use('*',(req,res)=>{
+     res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+})
 
 //Error Handling
 app.use((err,req,res,next)=>{
