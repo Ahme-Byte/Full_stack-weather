@@ -1,0 +1,17 @@
+.inputField {
+  width:25%
+}
+.s-btn{
+    width:25%;
+}
+.form{
+    width:85%;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.info{
+    color:red;
+}

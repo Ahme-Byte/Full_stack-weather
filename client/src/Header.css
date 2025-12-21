@@ -1,0 +1,60 @@
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to right, rgb(66, 66, 116), rgb(90, 120, 90));
+    min-height: 4rem; /* keep default height */
+    padding: 0 1rem;
+    box-sizing: border-box;
+}
+
+.header2{
+    width:70%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Icon + Title container */
+.web_icon_div {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem; /* small distance between icon & text */
+    cursor: pointer;
+}
+
+/* Bigger icon with modern blue shades */
+.web_icon {
+    font-size: 2.2rem; /* default large size */
+    color: #62a4ff;  
+    filter: drop-shadow(0px 2px 4px rgba(98, 164, 255, 0.4));
+    transition: font-size 0.3s ease; /* smooth resizing */
+}
+
+/* Stylish title */
+.web_title {
+    font-size: 1.3rem; 
+    font-weight: 600;
+    color: white;
+    letter-spacing: 0.5px;
+    margin: 0;
+    transition: font-size 0.3s ease;
+}
+
+/*Mobile responsiveness*/
+@media(max-width:600px){
+    .header {
+    display: flex;
+    flex-direction:column ;
+    justify-content: space-evenly;
+    align-items: center;
+    position:relative;
+}
+.header2{
+    width:100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+}

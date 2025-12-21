@@ -1,0 +1,31 @@
+.s-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    box-sizing: border-box;
+    width:100%;
+    height:70vh;
+}
+.signup{
+    text-align: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.inputField {
+  width:25%
+}
+.s-btn{
+    width:25%;
+}
+.s_error{
+  color:red;
+}
+@media(max-width:968px){
+.inputField {
+  width:65% !important;
+}
+.s-btn{
+    width:50% !important;
+}
+}

@@ -1,0 +1,72 @@
+/* Desktop styles for buttons */
+.Auhenticate1, .Auhenticate2 {
+    width: 12rem;
+    display: flex;
+    align-items: center;
+}
+
+.Auhenticate1 {
+    justify-content: space-between;
+}
+
+.Auhenticate2 {
+    justify-content: flex-end;
+}
+
+/* Hide mobile menu icon by default */
+.menu {
+    display: none !important;
+    font-size: 2rem;
+    cursor: pointer;
+}
+.auth{
+    display:none !important;
+}
+
+/* Mobile styles */
+@media (max-width: 600px) {
+    /* Show menu icon */
+    .menu {
+        display: block !important;
+        position: absolute;
+        top: 2.5rem; /* increased margin from top */
+        right: 0.5rem;
+        z-index: 1000;
+        font-size: 2rem  !important
+    }
+
+    /* Hide desktop buttons */
+    .Auhenticate1, .Auhenticate2 {
+        display: none;
+    }
+
+    /* Mobile menu container */
+    .auth {
+        background-color: #cdc8c8;
+        display: flex !important;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 8rem;
+        gap:0.3rem;
+        position: absolute;
+        top: 4.5rem; /* space below menu icon */
+        right: 1rem;
+        z-index: 999;
+        padding: 0.5rem;
+        border-radius: 6px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    /* Menu links */
+    .link {
+        text-decoration: none;
+        color: black;
+        margin: 0.3rem 0;
+        font-weight: 500;
+    }
+
+    .link:hover {
+        color: #007bff;
+    }
+}

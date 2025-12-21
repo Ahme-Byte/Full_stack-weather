@@ -1,0 +1,23 @@
+.footer{
+    width:100%;
+    height:3rem;
+    background-color:rgb(87, 150, 87);
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(90, 120, 90);
+}
+.footer-data{
+    width:20rem;
+    display: flex;
+    justify-content: space-evenly;
+}
+.footer p{
+ cursor:pointer;
+}
+.footer p a{
+    text-decoration: none;
+}
+.footer p a:hover{
+    text-decoration: underline;
+}

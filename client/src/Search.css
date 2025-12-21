@@ -1,0 +1,13 @@
+.s_form{
+    display:flex;
+    justify-content: space-evenly;
+    width: 16rem;
+    align-items: center;
+}
+.search .MuiInputBase-input{
+    color:rgb(76, 76, 232);
+    width:16rem;
+}
+.s_icon{
+font-size: 2.5rem !important;
+}

@@ -1,0 +1,40 @@
+.content{
+    width:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex:1;
+}
+/* Wrapper centers the alert horizontally */
+.alert-wrapper {
+    display: flex;
+    justify-content: center; /* center horizontally */
+    margin-top: 2rem;        /* distance from top */
+    width: 100%;
+}
+
+/* Stack styling */
+.alert-stack {
+    width: 50%;              /* half the screen width */
+    max-width: 500px;        /* optional max width */
+}
+
+/* Style the MUI Alert */
+.alert-stack .MuiAlert-root {
+    width: 100%;             /* fill the stack width */
+    border-radius: 8px;      /* rounded corners */
+    font-size: 1rem;         /* text size */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* subtle shadow */
+}
+
+/* Responsive for mobile */
+@media (max-width: 768px) {
+    .alert-stack {
+        width: 80%;
+    }
+}
+
+/* Content section */
+.content {
+    padding: 1rem;
+}

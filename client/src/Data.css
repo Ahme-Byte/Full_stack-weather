@@ -1,0 +1,69 @@
+.dataDiv{
+    display:flex;
+    justify-content: space-around;
+}
+.error{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+/* Card image styling */
+.MuiCardMedia-root {
+  border-radius: 8px 8px 0 0; /* rounded top corners */
+  object-fit: cover;
+}
+
+/* City name + icon */
+.cityName {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 1.4rem;
+  color: #2c3e50;
+  margin-bottom: 12px;
+}
+
+.cityName span {
+  display: flex;
+  align-items: center;
+  color: #1976d2; /* Material UI blue */
+  font-size: 1.6rem;
+}
+
+/* Weather data rows */
+.dataDiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 6px 0;
+  padding: 8px 12px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.dataDiv:last-child {
+  border-bottom: none;
+}
+
+.dataDiv p {
+  margin: 0;
+  font-size: 1rem;
+  color: #34495e;
+}
+
+.dataDiv p:first-child {
+  font-weight: 500;
+  color: #555;
+}
+
+.cardImage {
+  display: block;        /* makes it behave like a block element */
+  margin: 0 auto;        /* centers horizontally */
+  width: 80%;            /* optional: shrink image so it doesn’t stretch full width */
+  border-radius: 8px;    /* optional: rounded corners */
+  object-fit: cover;     /* keeps aspect ratio nicely */
+}

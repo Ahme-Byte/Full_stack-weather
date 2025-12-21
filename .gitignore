@@ -1,0 +1,15 @@
+# Node.js dependencies
+node_modules/
+
+# Environment variables
+.env
+
+# Logs
+*.log
+
+# React build folder
+client/build/
+
+# Optional OS files
+.DS_Store
+Thumbs.db
