@@ -1,27 +1,23 @@
-# Use Node.js
 FROM node:18
 
-# Create app directory
+# App root
 WORKDIR /app
 
-# Copy backend files
-COPY backend ./backend
-
-# Install backend dependencies
-WORKDIR /app/backend
+# ---------- SERVER ----------
+COPY server ./server
+WORKDIR /app/server
 RUN npm install
 
-# Copy frontend files
+# ---------- CLIENT ----------
 WORKDIR /app
-COPY frontend ./frontend
-
-# Install frontend dependencies (build already exists)
-WORKDIR /app/frontend
+COPY client ./client
+WORKDIR /app/client
 RUN npm install
+# RUN npm run build   # uncomment if you want to rebuild frontend
 
-# Expose port (Railway uses PORT env automatically)
+# Expose Railway port
 EXPOSE 3000
 
 # Start backend server
 WORKDIR /app
-CMD ["node", "backend/app.js"]
+CMD ["node", "server/app.js"]
