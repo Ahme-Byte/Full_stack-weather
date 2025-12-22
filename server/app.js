@@ -38,7 +38,7 @@ main()
  await mongoose.connect(process.env.MONGODB_URL);
 }
 
-app.use('*',(req,res)=>{
+app.use('/*',(req,res)=>{
      res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 })
 
