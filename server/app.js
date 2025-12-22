@@ -19,14 +19,14 @@ app.use(cors({
 }));
 
 /* ---------- STATIC FRONTEND ---------- */
-app.use(express.static(path.join(__dirname, '../frontend/build')));
+app.use(express.static(path.join(__dirname, '../client/build')));
 
 /* ---------- API ROUTES ---------- */
 app.use('/user', userRouter);
 
 /* ---------- FRONTEND FALLBACK (Express 5 compatible) ---------- */
 app.get(/.*/, (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
+  res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
 /* ---------- ERROR HANDLER ---------- */
