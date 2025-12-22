@@ -1,57 +1,49 @@
-const express=require ('express');
-const app=express();
-const cors=require('cors')
-const mongoose=require('mongoose');
-const userRouter=require('./routes/user');
-const user=require('./userSchema.js');
-const dotenv=require('dotenv');
-const path=require('path');
+const express = require('express');
+const app = express();
+const cors = require('cors');
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+const path = require('path');
+const userRouter = require('./routes/user');
+
 dotenv.config();
 
-
-//path
-app.use(express.static(path.join(__dirname,'../client/dist')));
-
-//CORS Config
-app.use(cors({
-    origin:'*',
-    methods:['GET','POST',"PUT","DELETE"],
-    credentials:true
-}))
-
-//Middlewires for req data
-app.use(express.urlencoded({extended:true}))
+/* ---------- MIDDLEWARE ---------- */
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-//Api Path
-app.use('/user',userRouter);
+// CORS (safe config)
+app.use(cors({
+  origin: true,    // allow requests from any domain (frontend domain optional)
+  credentials: false
+}));
 
-//Connecting Mongodb
-main()
-.then((r)=>{
-    console.log("Database connected");
-}).catch((e)=>{
-    console.log(e.message);
-})
+/* ---------- STATIC FRONTEND ---------- */
+app.use(express.static(path.join(__dirname, '../frontend/build')));
 
- async function main(){
- await mongoose.connect(process.env.MONGODB_URL);
-}
+/* ---------- API ROUTES ---------- */
+app.use('/user', userRouter);
 
-app.use('/*',(req,res)=>{
-     res.sendFile(path.join(__dirname, '../client/dist/index.html'));
-})
+/* ---------- FRONTEND FALLBACK (Express 5 compatible) ---------- */
+app.get(/.*/, (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
+});
 
-//Error Handling
-app.use((err,req,res,next)=>{
-      let {status=500,message='Something Went Wrong'}=err;
-      res.status(status).json({
-        success:false,
-        message
-    });
-})
+/* ---------- ERROR HANDLER ---------- */
+app.use((err, req, res, next) => {
+  res.status(err.status || 500).json({
+    success: false,
+    message: err.message || 'Something went wrong'
+  });
+});
 
-//Port Listining 
-app.listen(8080,()=>{
-    console.log('Port is Listining on 8080');
-})
+/* ---------- DATABASE CONNECTION ---------- */
+mongoose.connect(process.env.MONGODB_URL)
+  .then(() => console.log('Database connected'))
+  .catch(err => console.error('MongoDB Error:', err.message));
+
+/* ---------- PORT LISTENING ---------- */
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
