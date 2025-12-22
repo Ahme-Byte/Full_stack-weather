@@ -9,15 +9,14 @@ WORKDIR /app/server
 RUN npm install
 
 # ---------- CLIENT ----------
-WORKDIR /app
 COPY client ./client
 WORKDIR /app/client
 RUN npm install
-# RUN npm run build   # uncomment if you want to rebuild frontend
+RUN npm run build   # Build React app to generate 'dist' folder
 
-# Expose Railway port
-EXPOSE 3000
+# Expose Railway port (use the environment variable PORT)
+EXPOSE 8080
 
-# Start backend server
+# ---------- START BACKEND ----------
 WORKDIR /app
 CMD ["node", "server/app.js"]
