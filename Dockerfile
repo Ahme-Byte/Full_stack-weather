@@ -1,22 +1,26 @@
-FROM node:18
+# Use Node 20 (modern React/Vite support)
+FROM node:20
+
+# Install build tools for native modules
+RUN apt-get update && apt-get install -y python3 make g++
 
 # App root
 WORKDIR /app
 
 # ---------- SERVER ----------
-COPY server ./server
 WORKDIR /app/server
+COPY server/package*.json ./
 RUN npm install
+COPY server . .
 
 # ---------- CLIENT ----------
-COPY client ./client
 WORKDIR /app/client
+COPY client/package*.json ./
 RUN npm install
-RUN npm run build   # Build React app to generate 'dist' folder
-
-# Expose Railway port (use the environment variable PORT)
-EXPOSE 8080
+COPY client . .
+RUN npm run build   # Vite outputs to 'dist'
 
 # ---------- START BACKEND ----------
 WORKDIR /app
+EXPOSE 8080
 CMD ["node", "server/app.js"]
