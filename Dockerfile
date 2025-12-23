@@ -1,5 +1,5 @@
-# Use Node 18 LTS
-FROM node:18
+# Use Node 20 LTS (required by Vite 7+)
+FROM node:20
 
 # Install build tools for native modules
 RUN apt-get update && apt-get install -y python3 make g++
@@ -12,17 +12,13 @@ COPY server . .
 
 # ---------- CLIENT ----------
 WORKDIR /app/client
-# Copy only package.json files first (for caching)
 COPY client/package*.json ./
 RUN npm install
-# Copy all client source files (but not .env)
 COPY client ./
 
 # Pass secrets as build arguments
 ARG VITE_WEATHER_API_KEY
 ARG BACKEND_DOMAIN
-
-# Set them as environment variables for Vite build
 ENV VITE_WEATHER_API_KEY=$VITE_WEATHER_API_KEY
 ENV BACKEND_DOMAIN=$BACKEND_DOMAIN
 

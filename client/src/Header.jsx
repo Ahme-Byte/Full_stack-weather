@@ -1,4 +1,4 @@
-import "./header.css"
+import "./Header.css"
 import Search from './Search'
 import Authenticate from './Authenticate'
 import StormIcon from '@mui/icons-material/Storm';
