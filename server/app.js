@@ -43,21 +43,29 @@ mongoose.connect(`mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGOD
 
 
 
-  // Helper to remove wrapping quotes
+// ---------- DATABASE CONNECTION ----------
 const sanitizeEnv = (val = "") => val.replace(/^"(.*)"$/, "$1").trim();
 
-const mongoUser = sanitizeEnv(process.env.MONGODB_USER);
-const mongoPass = sanitizeEnv(process.env.MONGODB_PASS);
+// Hardcode username if env is unreliable
+const mongoUser = "ahmipersonal05_db_user"; 
+const mongoPass = sanitizeEnv(process.env.MONGODB_PASS || "");
+
+if (!mongoPass) {
+  console.error("MongoDB password is empty! Check Railway env variable MONGODB_PASS");
+  process.exit(1); // stop server to avoid empty auth
+}
+
 const encodedPass = encodeURIComponent(mongoPass);
+const mongoHost = "cluster0.qpst8rv.mongodb.net";
+const dbName = "weatherdb";
+
+console.log(`Connecting to MongoDB as user ${mongoUser}...`);
 
 mongoose.connect(
-  `mongodb+srv://${mongoUser}:${encodedPass}@cluster0.qpst8rv.mongodb.net/weatherdb?retryWrites=true&w=majority`
+  `mongodb+srv://${mongoUser}:${encodedPass}@${mongoHost}/${dbName}?retryWrites=true&w=majority`
 )
 .then(() => console.log("Database connected"))
 .catch(err => console.error("MongoDB Error:", err.message));
-
-
-
 
 
 /* ---------- PORT LISTENING ---------- */
