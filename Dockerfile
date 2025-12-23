@@ -1,7 +1,6 @@
-# ---------- Use Node 20 LTS ----------
+# ---------- Use Node 20 ----------
 FROM node:20
 
-# Install build tools for native modules
 RUN apt-get update && apt-get install -y python3 make g++
 
 # ---------- SERVER ----------
@@ -22,9 +21,15 @@ ARG VITE_BACKEND_DOMAIN
 ENV VITE_WEATHER_API_KEY=$VITE_WEATHER_API_KEY
 ENV VITE_BACKEND_DOMAIN=$VITE_BACKEND_DOMAIN
 
+# ---------- BACKEND ENV (THIS WAS MISSING) ----------
+ARG MONGODB_USER
+ARG MONGODB_PASS
+ENV MONGODB_USER=$MONGODB_USER
+ENV MONGODB_PASS=$MONGODB_PASS
+
 RUN npm run build
 
-# ---------- FINAL SETUP ----------
+# ---------- FINAL ----------
 WORKDIR /app
 EXPOSE 8080
 CMD ["node", "server/app.js"]
