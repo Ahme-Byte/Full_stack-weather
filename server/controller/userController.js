@@ -44,7 +44,7 @@ try{
       "WeatherWebEmail@01",
       {expiresIn:'1h'}
       )
-const link = `http://fullstack-weather-production.up.railway.app/user/verify/${token}`;
+const link = `https://fullstack-weather-production.up.railway.app/user/verify/${token}`;
 
 
       //Email sender setup
@@ -87,7 +87,7 @@ module.exports.gSignup=async(req,res,next)=>{
   try{
   const data=jwt.verify(req.params.token,"WeatherWebEmail@01");
   await User.findByIdAndUpdate(data.id,{isVerified:true});
- res.redirect(`http://fullstack-weather-production.up.railway.app/verified`);
+ res.redirect(`https://fullstack-weather-production.up.railway.app/verified`);
 }catch(err){
    next({status:400,message:'Invalid or Expired Token'});
 }
@@ -149,7 +149,7 @@ module.exports.pForget=async (req,res,next)=>{
     "WeatherforgetWebEmail@01",
    {expiresIn:'1h'}
    )
-   const fLink=`http://fullstack-weather-production.up.railway.app/reset/${token}`;
+   const fLink=`https://fullstack-weather-production.up.railway.app/reset/${token}`;
    const transporter=nodemailer.createTransport({
           host: 'smtp.gmail.com',
           port: 587,        // ✅ change from 465 → 587
