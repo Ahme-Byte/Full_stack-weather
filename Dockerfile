@@ -1,5 +1,6 @@
-# Use Node 20
-FROM node:20
+
+# New example: Node 18 LTS
+FROM node:18
 
 # Install build tools for native modules
 RUN apt-get update && apt-get install -y python3 make g++
