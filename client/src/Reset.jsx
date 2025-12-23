@@ -21,7 +21,7 @@ async function preDef(e){
     return setMsg('Password Does Not Match!');
  }
  try{
- const result= await fetch(`${import.meta.env.VITE_BACKEND_DOMAIN}/user/reset`,{
+ const result= await fetch(`${env.process.BACKEND_DOMAIN}/user/reset`,{
     method:'POST',
     headers:{
         'content-type':'application/json'
