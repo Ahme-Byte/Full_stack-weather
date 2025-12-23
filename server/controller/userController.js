@@ -91,17 +91,23 @@ module.exports.gSignup=async(req,res,next)=>{
 }
 }
 
+//post login
 module.exports.pLogin=async(req,res,next)=>{
   try{
+    console.log('req reached');
   const {email,password}=req.body;
+  console.log('req reached');
   const user=await User.findOne({email});
+  console.log('req reached');
   if(!user){
     return next({status:400,message:'Email Not Found'});
   }
   if(!user.isVerified){
     return next({status:400,message:'Please Verify Your Email'});
   }
+  console.log('req reached');
   const match=await bcrypt.compare(password,user.password);
+  console.log('req reached');
   if(!match){
     return next({status:400,message:'Incorrect Password'});
   }
