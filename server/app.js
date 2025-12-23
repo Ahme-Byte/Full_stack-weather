@@ -35,10 +35,31 @@ app.use((err, req, res, next) => {
   });
 });
 
-/* ---------- DATABASE CONNECTION ---------- */
+/* ---------- DATABASE CONNECTION ---------- 
 mongoose.connect(`mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASS}@cluster0.qpst8rv.mongodb.net/weatherdb?retryWrites=true&w=majority`)
   .then(() => console.log('Database connected'))
   .catch(err => console.error('MongoDB Error:', err.message));
+  */
+
+
+/* ---------- DATABASE CONNECTION ---------- */
+const sanitizeEnv = (val = "") => {
+  // Remove wrapping quotes if present
+  return val.replace(/^"(.*)"$/, "$1").trim();
+};
+
+const mongoUser = sanitizeEnv(process.env.MONGODB_USER);
+const mongoPass = sanitizeEnv(process.env.MONGODB_PASS);
+
+mongoose.connect(
+  `mongodb+srv://${mongoUser}:${mongoPass}@cluster0.qpst8rv.mongodb.net/weatherdb?retryWrites=true&w=majority`
+)
+  .then(() => console.log("Database connected"))
+  .catch(err => console.error("MongoDB Error:", err.message));
+
+
+
+
 
 /* ---------- PORT LISTENING ---------- */
 const PORT = process.env.PORT || 8080;
