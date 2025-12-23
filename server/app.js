@@ -9,6 +9,12 @@ if (process.env.NODE_ENV !== "production") {
   require('dotenv').config();
 }
 
+console.log("ENV MONGODB_URL:", process.env.MONGODB_URL);
+if (!process.env.MONGODB_URL) {
+  console.error("MongoDB URL is undefined! Check Railway env variables and Docker runtime.");
+}
+
+
 /* ---------- MIDDLEWARE ---------- */
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
