@@ -5,9 +5,7 @@ const mongoose = require('mongoose');
 const path = require('path');
 const userRouter = require('./routes/user');
 // Only use dotenv in local development
-if (process.env.NODE_ENV !== "production") {
-  require('dotenv').config();
-}
+
 
 console.log("ENV MONGODB_URL:", process.env.MONGODB_URL);
 if (!process.env.MONGODB_URL) {

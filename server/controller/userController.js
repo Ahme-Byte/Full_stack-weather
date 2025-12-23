@@ -87,7 +87,7 @@ module.exports.gSignup=async(req,res,next)=>{
   try{
   const data=jwt.verify(req.params.token,process.env.EMAIL_SECRET);
   await User.findByIdAndUpdate(data.id,{isVerified:true});
- res.redirect('process.env.BACKEND_DOMAIN/verified');
+ res.redirect(`${process.env.BACKEND_DOMAIN}/verified`);
 }catch(err){
    next({status:400,message:'Invalid or Expired Token'});
 }
@@ -97,23 +97,28 @@ module.exports.gSignup=async(req,res,next)=>{
 module.exports.pLogin=async(req,res,next)=>{
   try{
   const {email,password}=req.body;
-  const user=await User.findOne({email});
-  if(!user){
+  const guser=await User.findOne({email});
+  if(!guser){
     return next({status:400,message:'Email Not Found'});
   }
-  if(!user.isVerified){
+  if(!guser.isVerified){
     return next({status:400,message:'Please Verify Your Email'});
   }
-  const match=await bcrypt.compare(password,user.password);
+  const match=await bcrypt.compare(password,guser.password);
   if(!match){
     return next({status:400,message:'Incorrect Password'});
   }
   const token=jwt.sign({
-    id:user._id
+    id:guser._id
   },
   process.env.LOGIN_PASS,
   {expiresIn:'7d'}
 );
+const user={
+    id:guser._id,
+    username:guser.username,
+    email:guser.email
+}
 res.status(200).json({success:true,message:'Login Successfull',token,user})
   }catch(err){
     
