@@ -39,7 +39,7 @@ app.use((err, req, res, next) => {
 });
 
 /* ---------- DATABASE CONNECTION ---------- */
-mongoose.connect(process.env.MONGODB_URL)
+mongoose.connect(`${process.env.MONGODB_URL}`)
   .then(() => console.log('Database connected'))
   .catch(err => console.error('MongoDB Error:', err.message));
 
