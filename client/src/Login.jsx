@@ -16,7 +16,7 @@ export default function Login() {
   const [alert, setAlert] = useState('');
   const [open, setOpen] = useState(false);
 
-  const url = `${process.env.BACKEND_DOMAIN}/user/login`;
+  const url = `http://fullstack-weather-production.up.railway.app/user/login`;
   const { login } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();

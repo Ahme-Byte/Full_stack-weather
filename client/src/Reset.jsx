@@ -21,7 +21,7 @@ async function preDef(e){
     return setMsg('Password Does Not Match!');
  }
  try{
- const result= await fetch(`${process.env.BACKEND_DOMAIN}/user/reset`,{
+ const result= await fetch(`http://fullstack-weather-production.up.railway.app/user/reset`,{
     method:'POST',
     headers:{
         'content-type':'application/json'

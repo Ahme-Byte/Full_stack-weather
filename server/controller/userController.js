@@ -41,10 +41,10 @@ try{
         {
           id:newUser._id
         },
-      process.env.EMAIL_SECRET,
+      "WeatherWebEmail@01",
       {expiresIn:'1h'}
       )
-const link = `${process.env.FRONTEND_DOMAIN}/user/verify/${token}`;
+const link = `http://fullstack-weather-production.up.railway.app/user/verify/${token}`;
 
 
       //Email sender setup
@@ -53,8 +53,8 @@ const link = `${process.env.FRONTEND_DOMAIN}/user/verify/${token}`;
           port: 587,        // ✅ change from 465 → 587
           secure: false,
         auth:{
-          user:process.env.EMAIL,
-          pass:process.env.EMAIL_PASS
+          user:'ahmecreation@gmail.com',
+          pass:'ogaigbgvuydsmbsy'
         }
       })
 
@@ -85,9 +85,9 @@ const link = `${process.env.FRONTEND_DOMAIN}/user/verify/${token}`;
 //get signup
 module.exports.gSignup=async(req,res,next)=>{
   try{
-  const data=jwt.verify(req.params.token,process.env.EMAIL_SECRET);
+  const data=jwt.verify(req.params.token,"WeatherWebEmail@01");
   await User.findByIdAndUpdate(data.id,{isVerified:true});
- res.redirect(`${process.env.BACKEND_DOMAIN}/verified`);
+ res.redirect(`http://fullstack-weather-production.up.railway.app/verified`);
 }catch(err){
    next({status:400,message:'Invalid or Expired Token'});
 }
@@ -111,7 +111,7 @@ module.exports.pLogin=async(req,res,next)=>{
   const token=jwt.sign({
     id:guser._id
   },
-  process.env.LOGIN_PASS,
+  "WebWeath@erEma0l1",
   {expiresIn:'7d'}
 );
 const user={
@@ -146,17 +146,17 @@ module.exports.pForget=async (req,res,next)=>{
     {
       id:userData._id
     },
-    process.env.EMAIL_SECRET_FORGET,
+    "WeatherforgetWebEmail@01",
    {expiresIn:'1h'}
    )
-   const fLink=`${process.env.BACKEND_DOMAIN}/reset/${token}`;
+   const fLink=`http://fullstack-weather-production.up.railway.app/reset/${token}`;
    const transporter=nodemailer.createTransport({
           host: 'smtp.gmail.com',
           port: 587,        // ✅ change from 465 → 587
           secure: false,
       auth:{
-      user:  process.env.EMAIL,
-       pass: process.env.EMAIL_PASS
+      user:'ahmecreation@gmail.com',
+       pass:'ogaigbgvuydsmbsy'
       }
       })
      await transporter.sendMail({
