@@ -36,7 +36,8 @@ app.use((err, req, res, next) => {
 });
 
 //connecting database
-mongoose.connect('mongodb+srv://ahmipersonal05_db_user:kashmeer@cluster0.qpst8rv.mongodb.net/weatherdb?appName=Cluster0')
+//mongoose.connect('mongodb+srv://ahmipersonal05_db_user:kashmeer@cluster0.qpst8rv.mongodb.net/weatherdb?appName=Cluster0')
+mongoose.connect(process.env.MONGODB_URL)
   .then(() => console.log('Database connected'))
   .catch(err => console.error('MongoDB Error:', err.message)); 
 
