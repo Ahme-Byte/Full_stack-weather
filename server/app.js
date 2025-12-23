@@ -6,13 +6,6 @@ const path = require('path');
 const userRouter = require('./routes/user');
 // Only use dotenv in local development
 
-
-console.log("ENV MONGODB_URL:", process.env.MONGODB_URL);
-if (!process.env.MONGODB_URL) {
-  console.error("MongoDB URL is undefined! Check Railway env variables and Docker runtime.");
-}
-
-
 /* ---------- MIDDLEWARE ---------- */
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -42,9 +35,8 @@ app.use((err, req, res, next) => {
   });
 });
 
-const mongoPass = encodeURIComponent(process.env.MONGODB_PASS);
 /* ---------- DATABASE CONNECTION ---------- */
-mongoose.connect(`mongodb+srv://${process.env.MONGODB_USER}:${mongoPass}@cluster0.qpst8rv.mongodb.net/weatherdb?retryWrites=true&w=majority`)
+mongoose.connect(`mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASS}@cluster0.qpst8rv.mongodb.net/weatherdb?retryWrites=true&w=majority`)
   .then(() => console.log('Database connected'))
   .catch(err => console.error('MongoDB Error:', err.message));
 
