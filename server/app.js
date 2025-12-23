@@ -36,6 +36,8 @@ app.use((err, req, res, next) => {
 });
 
 /* ---------- DATABASE CONNECTION ---------- */
+console.log(process.env.MONGODB_USER);
+console.log(process.env.MONGODB_PASS);
 mongoose.connect(`mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASS}@cluster0.qpst8rv.mongodb.net/weatherdb?retryWrites=true&w=majority`)
   .then(() => console.log('Database connected'))
   .catch(err => console.error('MongoDB Error:', err.message));
