@@ -38,24 +38,23 @@ app.use((err, req, res, next) => {
 /* ---------- DATABASE CONNECTION ---------- 
 mongoose.connect(`mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASS}@cluster0.qpst8rv.mongodb.net/weatherdb?retryWrites=true&w=majority`)
   .then(() => console.log('Database connected'))
-  .catch(err => console.error('MongoDB Error:', err.message));
-  */
+  .catch(err => console.error('MongoDB Error:', err.message));*/
 
 
-/* ---------- DATABASE CONNECTION ---------- */
-const sanitizeEnv = (val = "") => {
-  // Remove wrapping quotes if present
-  return val.replace(/^"(.*)"$/, "$1").trim();
-};
+
+
+  // Helper to remove wrapping quotes
+const sanitizeEnv = (val = "") => val.replace(/^"(.*)"$/, "$1").trim();
 
 const mongoUser = sanitizeEnv(process.env.MONGODB_USER);
 const mongoPass = sanitizeEnv(process.env.MONGODB_PASS);
+const encodedPass = encodeURIComponent(mongoPass);
 
 mongoose.connect(
-  `mongodb+srv://${mongoUser}:${mongoPass}@cluster0.qpst8rv.mongodb.net/weatherdb?retryWrites=true&w=majority`
+  `mongodb+srv://${mongoUser}:${encodedPass}@cluster0.qpst8rv.mongodb.net/weatherdb?retryWrites=true&w=majority`
 )
-  .then(() => console.log("Database connected"))
-  .catch(err => console.error("MongoDB Error:", err.message));
+.then(() => console.log("Database connected"))
+.catch(err => console.error("MongoDB Error:", err.message));
 
 
 
