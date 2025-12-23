@@ -1,4 +1,4 @@
-# Use Node 20 LTS (required by Vite 7+)
+# ---------- Use Node 20 LTS for Vite ----------
 FROM node:20
 
 # Install build tools for native modules
@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y python3 make g++
 WORKDIR /app/server
 COPY server/package*.json ./
 RUN npm install
-COPY server . .
+COPY server ./
 
 # ---------- CLIENT ----------
 WORKDIR /app/client
@@ -16,16 +16,20 @@ COPY client/package*.json ./
 RUN npm install
 COPY client ./
 
-# Pass secrets as build arguments
+# ---------- Build frontend ----------
+# Pass secrets as build arguments (must start with VITE_ for Vite)
 ARG VITE_WEATHER_API_KEY
-ARG BACKEND_DOMAIN
+ARG VITE_BACKEND_DOMAIN
 ENV VITE_WEATHER_API_KEY=$VITE_WEATHER_API_KEY
-ENV BACKEND_DOMAIN=$BACKEND_DOMAIN
+ENV VITE_BACKEND_DOMAIN=$VITE_BACKEND_DOMAIN
 
-# Build frontend
 RUN npm run build
 
 # ---------- FINAL SETUP ----------
 WORKDIR /app
 EXPOSE 8080
+
+# Pass server secrets at runtime via environment variables
+# Example (for Railway, Heroku, or docker run -e):
+# MONGODB_URL, EMAIL_SECRET, EMAIL, EMAIL_PASS, LOGIN_PASS, EMAIL_SECRET_FORGET, FRONTEND_DOMAIN
 CMD ["node", "server/app.js"]
