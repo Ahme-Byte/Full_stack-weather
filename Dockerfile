@@ -1,5 +1,4 @@
-
-# New example: Node 18 LTS
+# Use Node 18 LTS
 FROM node:18
 
 # Install build tools for native modules
@@ -16,9 +15,12 @@ WORKDIR /app/client
 # Copy only package files first (for caching)
 COPY client/package*.json ./
 RUN npm install
-# Copy all client source files
-COPY client ./
-# Build frontend
+
+# Copy all client source files and .env
+COPY client ./ 
+COPY client/.env ./
+
+# Build frontend (Vite needs env variables)
 RUN npm run build
 
 # ---------- FINAL SETUP ----------
