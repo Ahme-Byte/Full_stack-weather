@@ -12,15 +12,21 @@ COPY server . .
 
 # ---------- CLIENT ----------
 WORKDIR /app/client
-# Copy only package files first (for caching)
+# Copy only package.json files first (for caching)
 COPY client/package*.json ./
 RUN npm install
+# Copy all client source files (but not .env)
+COPY client ./
 
-# Copy all client source files and .env
-COPY client ./ 
-COPY client/.env ./
+# Pass secrets as build arguments
+ARG VITE_WEATHER_API_KEY
+ARG BACKEND_DOMAIN
 
-# Build frontend (Vite needs env variables)
+# Set them as environment variables for Vite build
+ENV VITE_WEATHER_API_KEY=$VITE_WEATHER_API_KEY
+ENV BACKEND_DOMAIN=$BACKEND_DOMAIN
+
+# Build frontend
 RUN npm run build
 
 # ---------- FINAL SETUP ----------
