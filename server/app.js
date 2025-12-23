@@ -4,6 +4,10 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const path = require('path');
 const userRouter = require('./routes/user');
+// Only use dotenv in local development
+if (process.env.NODE_ENV !== "production") {
+  require('dotenv').config();
+}
 
 /* ---------- MIDDLEWARE ---------- */
 app.use(express.urlencoded({ extended: true }));

@@ -3,8 +3,10 @@ const bcrypt=require('bcryptjs');
 const jwt=require('jsonwebtoken');
 const nodemailer=require('nodemailer');
 const User = require('../userSchema.js');
-const dotenv=require('dotenv');
-dotenv.config();
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
+
 
 //post signup
 module.exports.pSignup=async(req,res,next)=>{
