@@ -121,9 +121,6 @@ const user={
 }
 res.status(200).json({success:true,message:'Login Successfull',token,user})
   }catch(err){
-    
-  console.error("Login Error:", err); // <-- log full error
-
     next({status:500,message:err})
   }
 }
