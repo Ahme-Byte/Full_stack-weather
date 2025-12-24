@@ -16,7 +16,7 @@ export default function Login() {
   const [alert, setAlert] = useState('');
   const [open, setOpen] = useState(false);
 
-  const url = 'fullstack-weather-copy-production.up.railway.app/user/login';
+  const url = 'https://fullstack-weather-copy-production.up.railway.app/user/login';
   const { login } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
