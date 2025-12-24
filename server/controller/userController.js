@@ -3,7 +3,7 @@ const bcrypt=require('bcryptjs');
 const jwt=require('jsonwebtoken');
 const nodemailer=require('nodemailer');
 const User = require('../userSchema.js');
-import axios from 'axios';
+const axios= require('axios');
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
