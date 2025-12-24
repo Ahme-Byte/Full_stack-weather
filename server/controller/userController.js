@@ -51,7 +51,7 @@ try{
       )
       
 const link = `${process.env.WEB_URL}/user/verify/${token}`;
-
+try{
   const response = await axios.post(
     'https://api.brevo.com/v3/smtp/email',
     {
@@ -76,7 +76,11 @@ const link = `${process.env.WEB_URL}/user/verify/${token}`;
         'Accept': 'application/json'
       }
     }
-  );
+  ) 
+  console.log('Email sent:', response.data);
+}catch(err){
+     console.log('Brevo error:', err.response?.data || err.message);
+  }
 
    /*   //Email sender setup
       const transporter=nodemailer.createTransport({
