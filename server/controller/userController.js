@@ -16,19 +16,20 @@ try{
       if(error){
         return next({status:400,message:error.details[0].message})
       };
-console.log(value.userData);
       const {username,email,password}=value.userData;
 
       //User alreday exists?
       const exists=await User.findOne({email});
-      if (exists && exists.isVerified){
+      if (exists){
+        if(exists.isVerified){
         return next({status:400,message:'Email Already Exists'})
-      };
+      }else{
+        return next({status:400,message:'Please verify Your Email'});
+      }
+    }
 
       //password hashing
       const hashed=await bcrypt.hash(password,10);
-      console.log("pass hash");
-
       //Createing new user model
       const newUser=await User.create({
         username,
@@ -46,8 +47,6 @@ console.log(value.userData);
       {expiresIn:'1h'}
       )
 const link = `https://fullstack-weather-production.up.railway.app/user/verify/${token}`;
-
-    console.log("email token");
       //Email sender setup
       const transporter=nodemailer.createTransport({
           host: 'smtp.gmail.com',
@@ -58,7 +57,6 @@ const link = `https://fullstack-weather-production.up.railway.app/user/verify/${
           pass:'ogaigbgvuydsmbsy'
         }
       })
-       console.log("sender setup");
 
   //Sent email verification
   await transporter.sendMail({
@@ -75,13 +73,13 @@ const link = `https://fullstack-weather-production.up.railway.app/user/verify/${
        <p>${link}</p>
     </div>`
   });
-   console.log("emails sent");
   res.status(201).json({
     success:true,
     message:'Verification Email Sent'
   });
 }catch(err){
-  next({status:500,message:'Something went wrong! Try again later'})
+  console.log('signup err',err);
+  next({status:500,message:err.message})
 }
 }
 
@@ -124,7 +122,7 @@ const user={
 }
 res.status(200).json({success:true,message:'Login Successfull',token,user})
   }catch(err){
-    next({status:500,message:err})
+    next({status:500,message:'Something went wrong! Try again later'})
   }
 }
 
