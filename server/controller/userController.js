@@ -52,7 +52,7 @@ try{
       
 const link = `${process.env.WEB_URL}/user/verify/${token}`;
 try{
-  const response = await axios.post(
+  await axios.post(
     'https://api.brevo.com/v3/smtp/email',
     {
       sender: { name: 'Weather Website', email: process.env.EMAIL_USER },
@@ -186,7 +186,32 @@ module.exports.pForget=async (req,res,next)=>{
     process.env.FORGET_TOKEN,
    {expiresIn:'1h'}
    )
+
    const fLink=`${process.env.WEB_URL}/reset/${token}`;
+       await axios.post('https://api.brevo.com/v3/smtp/email',{
+      sender: { name: 'Weather Website', email: process.env.EMAIL_USER },
+      to: [{ email }],
+      subject: 'Verify Your Account',
+      htmlContent: `<div style="font-family:Arial; padding:20px;">
+        <h2>Weather Update</h2>
+        <p>Click the button below to verify your email:</p>
+        <a href="${fLink}" 
+           style="display:inline-block; padding:10px 15px; background:#4CAF50; color:white; 
+           text-decoration:none; border-radius:5px; margin-top:10px;">
+           Verify Email
+        </a>
+        <p>${fLink}</p>
+      </div>`
+    },
+    {
+      headers: {
+        'api-key': process.env.WAETHER_SEND_KEY, // Brevo API key
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+
+ })
+   /*
    const transporter=nodemailer.createTransport({
            host: process.env.EMAIL_HOST,  // lowercase 'process'
           port: 587,
@@ -211,6 +236,7 @@ module.exports.pForget=async (req,res,next)=>{
       <p>${fLink}</p>
     </div>`
    })
+    */
    res.status(201).json({
     success:true,
     message:'Reset Email has been Sent',reset:fLink
