@@ -77,9 +77,8 @@ try{
       }
     }
   ) 
-  console.log('Email sent:', response.data);
 }catch(err){
-     console.log('Brevo error:', err.response?.data || err.message);
+     console.log(err.message)
   }
 
    /*   //Email sender setup
@@ -115,7 +114,7 @@ try{
 
   res.status(201).json({
     success:true,
-    message:'Verification Email Sent'
+    message:`Verification Email Sent (For testing:${link} )` 
   });
 }catch(err){
   console.log('signup err',err);
