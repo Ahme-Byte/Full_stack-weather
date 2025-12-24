@@ -43,10 +43,10 @@ try{
         {
           id:newUser._id
         },
-      "WeatherWebEmail@01",
+      process.env.VERIFY_TOKEN,
       {expiresIn:'1h'}
       )
-const link = `https://fullstack-weather-production.up.railway.app/user/verify/${token}`;
+const link = `${process.env.WEB_URL}/user/verify/${token}`;
       //Email sender setup
       const transporter=nodemailer.createTransport({
          host: process.env.EMAIL_HOST,  // lowercase 'process'
@@ -86,9 +86,9 @@ const link = `https://fullstack-weather-production.up.railway.app/user/verify/${
 //get signup
 module.exports.gSignup=async(req,res,next)=>{
   try{
-  const data=jwt.verify(req.params.token,"WeatherWebEmail@01");
+  const data=jwt.verify(req.params.token,process.env.VERIFY_TOKEN);
   await User.findByIdAndUpdate(data.id,{isVerified:true});
- res.redirect(`https://fullstack-weather-production.up.railway.app/verified`);
+ res.redirect(`${process.env.WEB_URL}/verified`);
 }catch(err){
    next({status:400,message:'Invalid or Expired Token'});
 }
@@ -112,7 +112,7 @@ module.exports.pLogin=async(req,res,next)=>{
   const token=jwt.sign({
     id:guser._id
   },
-  "WebWeath@erEma0l1",
+  process.env.LOGIN_TOKEN,
   {expiresIn:'7d'}
 );
 const user={
@@ -144,10 +144,10 @@ module.exports.pForget=async (req,res,next)=>{
     {
       id:userData._id
     },
-    "WeatherforgetWebEmail@01",
+    process.env.FORGET_TOKEN,
    {expiresIn:'1h'}
    )
-   const fLink=`https://fullstack-weather-production.up.railway.app/reset/${token}`;
+   const fLink=`${process.env.WEB_URL}/reset/${token}`;
    const transporter=nodemailer.createTransport({
            host: process.env.EMAIL_HOST,  // lowercase 'process'
           port: 587,
@@ -185,7 +185,7 @@ module.exports.pForget=async (req,res,next)=>{
 module.exports.vForget=async(req,res,next)=>{
   try{
     const {password,token}=req.body;
-   const data=jwt.verify(token,process.env.EMAIL_SECRET_FORGET);
+   const data=jwt.verify(token,process.env.FORGET_TOKEN);
    const hashed=await bcrypt.hash(password,10);
   const user= await User.findByIdAndUpdate(data.id,{password:hashed},{new:true});
   if(!user){

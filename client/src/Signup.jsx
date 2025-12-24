@@ -7,7 +7,7 @@ export default function Signup(){
 const [value,setValue]=useState({userData:{username:'',email:'',password:''}});
 const [cpass,setCpass]=useState('');
 const [msg,setMsg]=useState('');
-const url=`https://fullstack-weather-production.up.railway.app/user/signup`;
+const url=`${process.env.WEB_URL}/user/signup`;
 
 //Edit form
 function editing(evt){

@@ -35,11 +35,8 @@ app.use((err, req, res, next) => {
   });
 });
 
- console.log(process.env.EMAIL_HOST);
- console.log( process.env.EMAIL_USER);
- console.log(process.env.EMAIL_PASS);
 //connecting database
-mongoose.connect('mongodb+srv://ahmipersonal05_db_user:kashmeer@cluster0.qpst8rv.mongodb.net/weatherdb?appName=Cluster0')
+mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.qpst8rv.mongodb.net/weatherdb?appName=Cluster0`)
   .then(() => console.log('Database connected'))
   .catch(err => console.error('MongoDB Error:', err.message)); 
 

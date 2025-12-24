@@ -21,7 +21,7 @@ async function preDef(e){
     return setMsg('Password Does Not Match!');
  }
  try{
- const result= await fetch(`https://fullstack-weather-production.up.railway.app/user/reset`,{
+ const result= await fetch(`${process.env.WEB_URL}/user/reset`,{
     method:'POST',
     headers:{
         'content-type':'application/json'
