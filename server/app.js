@@ -12,15 +12,9 @@ app.use(express.json());
 
 // CORS (safe config)
 app.use(cors({
-  origin: [
-    'https://fullstack-weather-copy-production.up.railway.app'
-  ],
-  methods: ['GET', 'POST', 'PUT','OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  origin: true,    // allow requests from any domain (frontend domain optional)
+  credentials: false
 }));
-
-
-
 
 /* ---------- STATIC FRONTEND ---------- */
 app.use(express.static(path.join(__dirname, '../client/dist')));
