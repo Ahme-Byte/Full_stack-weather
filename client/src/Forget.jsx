@@ -6,7 +6,7 @@ export default function Forget(){
     const [email,setEmail]=useState('');
     const [msg,setMsg]=useState('');
       const [link,setLink]=useState('');
-    const url='http://localhost:8080/user/forget'
+    const url='https://fullstack-weather-copy-production.up.railway.app/user/forget'
 
     function editing(e){
         setEmail(e.target.value);
