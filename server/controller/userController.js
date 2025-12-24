@@ -47,15 +47,16 @@ try{
       {expiresIn:'1h'}
       )
 const link = `https://fullstack-weather-production.up.railway.app/user/verify/${token}`;
+
       //Email sender setup
       const transporter=nodemailer.createTransport({
-          host: 'smtp.gmail.com',
-          port: 587,        // ✅ change from 465 → 587
+         host: process.env.EMAIL_HOST,  // lowercase 'process'
+          port: 587,
           secure: false,
-        auth:{
-          user:'ahmecreation@gmail.com',
-          pass:'ogaigbgvuydsmbsy'
-        }
+  auth: {
+         user: process.env.EMAIL_USER,
+         pass: process.env.EMAIL_PASS
+  }
       })
 
   //Sent email verification
@@ -149,13 +150,13 @@ module.exports.pForget=async (req,res,next)=>{
    )
    const fLink=`https://fullstack-weather-production.up.railway.app/reset/${token}`;
    const transporter=nodemailer.createTransport({
-          host: 'smtp.gmail.com',
-          port: 587,        // ✅ change from 465 → 587
+           host: process.env.EMAIL_HOST,  // lowercase 'process'
+          port: 587,
           secure: false,
-      auth:{
-      user:'ahmecreation@gmail.com',
-       pass:'ogaigbgvuydsmbsy'
-      }
+  auth: {
+         user: process.env.EMAIL_USER,
+         pass: process.env.EMAIL_PASS
+  }
       })
      await transporter.sendMail({
         to:email,
