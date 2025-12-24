@@ -46,6 +46,7 @@ try{
       process.env.VERIFY_TOKEN,
       {expiresIn:'1h'}
       )
+      
 const link = `${process.env.WEB_URL}/user/verify/${token}`;
       //Email sender setup
       const transporter=nodemailer.createTransport({
@@ -59,9 +60,7 @@ const link = `${process.env.WEB_URL}/user/verify/${token}`;
       })
 
   //Sent email verification
-  try{
-  await transporter.sendMail({
-    from:process.env.EMAIL_USER,
+  /*await transporter.sendMail({
     to:email,
     subject:'Verify Your Account',
     html:  `<div style="font-family:Arial; padding:20px;">
@@ -78,7 +77,7 @@ const link = `${process.env.WEB_URL}/user/verify/${token}`;
 }catch(error){
   console.log('sender error',error);
   return next({status:500,message:"email sender error"});
-}
+} */
 
 
   res.status(201).json({
