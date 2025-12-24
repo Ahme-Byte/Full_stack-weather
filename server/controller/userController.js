@@ -16,7 +16,7 @@ try{
       if(error){
         return next({status:400,message:error.details[0].message})
       };
-
+console.log(value.userData);
       const {username,email,password}=value.userData;
 
       //User alreday exists?
@@ -27,6 +27,7 @@ try{
 
       //password hashing
       const hashed=await bcrypt.hash(password,10);
+      console.log("pass hash");
 
       //Createing new user model
       const newUser=await User.create({
@@ -46,7 +47,7 @@ try{
       )
 const link = `https://fullstack-weather-production.up.railway.app/user/verify/${token}`;
 
-
+    console.log("email token");
       //Email sender setup
       const transporter=nodemailer.createTransport({
           host: 'smtp.gmail.com',
@@ -57,6 +58,7 @@ const link = `https://fullstack-weather-production.up.railway.app/user/verify/${
           pass:'ogaigbgvuydsmbsy'
         }
       })
+       console.log("sender setup");
 
   //Sent email verification
   await transporter.sendMail({
@@ -73,6 +75,7 @@ const link = `https://fullstack-weather-production.up.railway.app/user/verify/${
        <p>${link}</p>
     </div>`
   });
+   console.log("emails sent");
   res.status(201).json({
     success:true,
     message:'Verification Email Sent'
