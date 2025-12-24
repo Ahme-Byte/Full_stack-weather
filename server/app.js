@@ -34,25 +34,15 @@ app.use((err, req, res, next) => {
     message: err.message || 'Something went wrong'
   });
 });
+const PORT = process.env.PORT || 8080;
 
 //connecting database
-console.log(process.env.DB_USER);
-console.log(process.env.DB_PASS);
-console.log(process.env.EMAIL_HOST);
-console.log(process.env.EMAIL_USER);
-console.log(process.env.EMAIL_PASS);
-console.log(process.env.WEB_URL);
-console.log(process.env.VERIFY_TOKEN);
-console.log(process.env.LOGIN_TOKEN);
-console.log(process.env.FORGET_TOKEN);
-console.log(process.env.VITE_WEATHER_API_KEY);
-
 mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.qpst8rv.mongodb.net/weatherdb?appName=Cluster0`)
-  .then(() => console.log('Database connected'))
-  .catch(err => console.error('MongoDB Error:', err.message)); 
-
-/* ---------- PORT LISTENING ---------- */
-const PORT = process.env.PORT || 8080;
+  .then(() =>{console.log('Database connected')
+             /* ---------- PORT LISTENING ---------- */
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
-});
+})}
+).catch(err => console.error('MongoDB Error:', err.message)); 
+
+
