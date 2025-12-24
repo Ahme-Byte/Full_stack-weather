@@ -6,7 +6,7 @@ import {useState} from "react"
 import { useNavigate } from 'react-router-dom';
 export default function Search({setWeatherData}){
      const [city,setCity]=useState("");
-    const apiKey=import.meta.env.VITE_WEATHER_API_KEY;
+    const apiKey='269d06950fb32d867707ae19430af9cc';
     const api="https://api.openweathermap.org/data/2.5/weather";
         const navigate=useNavigate();
 
