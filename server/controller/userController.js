@@ -52,7 +52,7 @@ const link = `${process.env.WEB_URL}/user/verify/${token}`;
 
       //Email sender setup
       const transporter=nodemailer.createTransport({
-        from:process.env.EMAIL_HOST,
+        from:process.env.EMAIL_USER,
          host: process.env.EMAIL_HOST,  // lowercase 'process'
           port: 587,
           secure: false,
@@ -61,7 +61,8 @@ const link = `${process.env.WEB_URL}/user/verify/${token}`;
          pass: process.env.EMAIL_PASS
   },
   logger:true,
-  debug:true
+  debug:true,
+  connectionTimeout:10000
       })
 
   //Sent email verification
