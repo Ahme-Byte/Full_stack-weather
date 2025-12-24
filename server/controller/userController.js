@@ -114,7 +114,7 @@ try{
 
   res.status(201).json({
     success:true,
-    message:`Verification Email Sent (For testing:${link} )` 
+    message:'Verification Email Sent',verify:link
   });
 }catch(err){
   console.log('signup err',err);
@@ -213,7 +213,7 @@ module.exports.pForget=async (req,res,next)=>{
    })
    res.status(201).json({
     success:true,
-    message:'Reset Email has been Sent'
+    message:'Reset Email has been Sent',reset:fLink
    })
   }catch(err){
     next({status:500,message:'Something went wrong! Try again later'})

@@ -5,6 +5,7 @@ import './forget.css'
 export default function Forget(){
     const [email,setEmail]=useState('');
     const [msg,setMsg]=useState('');
+      const [link,setLink]=useState('');
     const url='http://localhost:8080/user/forget'
 
     function editing(e){
@@ -23,6 +24,9 @@ export default function Forget(){
     });
     const final_result=await result.json();
     setMsg(final_result.message);
+    if(final_result.reset){
+        setLink(final_result.reset);
+    }
     }catch(e){
         setMsg('Something went wrong');
     }
@@ -36,6 +40,8 @@ export default function Forget(){
        <Button variant="contained" size='small' type="submit" className='s-btn'>Submit</Button>
        <br/>
        {msg && <p class="info">{msg}</p>}
+       <br/>
+       {link && <p>For Testing : </p> &&  <Button variant="contained" size='small' component='a' href={link} className='s-btn'>Click to reset pass</Button>}
             </form>
         </>
     )

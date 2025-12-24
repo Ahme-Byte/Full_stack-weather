@@ -7,6 +7,7 @@ export default function Signup(){
 const [value,setValue]=useState({userData:{username:'',email:'',password:''}});
 const [cpass,setCpass]=useState('');
 const [msg,setMsg]=useState('');
+const [link,setLink]=useState('');
 const url='https://fullstack-weather-copy-production.up.railway.app/user/signup';
 
 //Edit form
@@ -17,7 +18,6 @@ function editing(evt){
 function cPass(evt){
     setCpass(evt.target.value);
 }
-
 //Prevnet Default submit form
  async function preDef(evt){
   evt.preventDefault();
@@ -34,6 +34,9 @@ function cPass(evt){
     });
     const f_result=await result.json();
     setMsg(f_result.message);
+    if(f_result.verify){
+      setLink(f_result.verify);
+    }
     }catch(err){
     setMsg("Something went wrong!")
   }}
@@ -55,6 +58,8 @@ function cPass(evt){
         Already have an account? <Link to="/login">Login</Link>
       </p>
                 {msg && <p className='s_error'>{msg}</p> }
+                <br/>
+                {link &&<p>For Testing : </p> && <Button variant="contained" size='small' className='s-btn' component='a' href={link}>Click to verified email</Button>}
          </form>
           </>
     )
