@@ -41,7 +41,10 @@ export default function Forget(){
        <br/>
        {msg && <p class="info">{msg}</p>}
        <br/>
-       {link && <p>For Testing : </p> &&  <Button variant="contained" size='small' component='a' href={link} className='s-btn'>Click to reset pass</Button>}
+       {link && (
+        <>
+        <p>For Testing : </p><Button variant="contained" size='small' component='a' href={link} className='s-btn'>Click to reset pass</Button>
+        </>)}
             </form>
         </>
     )

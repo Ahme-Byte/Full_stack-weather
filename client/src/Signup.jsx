@@ -59,7 +59,10 @@ function cPass(evt){
       </p>
                 {msg && <p className='s_error'>{msg}</p> }
                 <br/>
-                {link &&<p>For Testing : </p> && <Button variant="contained" size='small' className='s-btn' component='a' href={link}>Click to verified email</Button>}
+                {link && (
+                  <>
+                  <p>For Testing : </p><Button variant="contained" size='small' className='s-btn' component='a' href={link}>Click to verified email</Button> 
+                  </> )}
          </form>
           </>
     )
