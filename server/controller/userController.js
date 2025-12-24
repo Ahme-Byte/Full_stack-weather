@@ -3,14 +3,16 @@ const bcrypt=require('bcryptjs');
 const jwt=require('jsonwebtoken');
 const nodemailer=require('nodemailer');
 const User = require('../userSchema.js');
+import axios from 'axios';
+
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
 
-
 //post signup
 module.exports.pSignup=async(req,res,next)=>{
 try{
+
   //joi Validtion
       let {error,value}=userSchema.validate(req.body);
       if(error){
@@ -50,7 +52,33 @@ try{
       
 const link = `${process.env.WEB_URL}/user/verify/${token}`;
 
-      //Email sender setup
+  const response = await axios.post(
+    'https://api.brevo.com/v3/smtp/email',
+    {
+      sender: { name: 'Weather Website', email: process.env.EMAIL_USER },
+      to: [{ email }],
+      subject: 'Verify Your Account',
+      htmlContent: `<div style="font-family:Arial; padding:20px;">
+        <h2>Weather Update</h2>
+        <p>Click the button below to verify your email:</p>
+        <a href="${link}" 
+           style="display:inline-block; padding:10px 15px; background:#4CAF50; color:white; 
+           text-decoration:none; border-radius:5px; margin-top:10px;">
+           Verify Email
+        </a>
+        <p>${link}</p>
+      </div>`
+    },
+    {
+      headers: {
+        'api-key': process.env.WAETHER_SEND_KEY, // Brevo API key
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    }
+  );
+
+   /*   //Email sender setup
       const transporter=nodemailer.createTransport({
         from:process.env.EMAIL_USER,
          host: process.env.EMAIL_HOST,  // lowercase 'process'
@@ -79,7 +107,7 @@ const link = `${process.env.WEB_URL}/user/verify/${token}`;
       </a>
        <p>${link}</p>
     </div>`
-  });
+  }); */
 
   res.status(201).json({
     success:true,
