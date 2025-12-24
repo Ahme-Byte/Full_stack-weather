@@ -47,7 +47,9 @@ try{
       {expiresIn:'1h'}
       )
 const link = `https://fullstack-weather-production.up.railway.app/user/verify/${token}`;
-
+ console.log(process.env.EMAIL_HOST);
+ console.log( process.env.EMAIL_USER);
+ console.log(process.env.EMAIL_PASS);
       //Email sender setup
       const transporter=nodemailer.createTransport({
          host: process.env.EMAIL_HOST,  // lowercase 'process'
