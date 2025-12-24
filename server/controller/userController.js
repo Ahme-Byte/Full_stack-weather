@@ -30,8 +30,9 @@ try{
 
       //password hashing
       const hashed=await bcrypt.hash(password,10);
+
       //Createing new user model
-      const newUser=await User.create({
+     const newUser=await User.create({
         username,
         email,
         password:hashed,
@@ -48,19 +49,23 @@ try{
       )
       
 const link = `${process.env.WEB_URL}/user/verify/${token}`;
+
       //Email sender setup
       const transporter=nodemailer.createTransport({
+        from:process.env.EMAIL_HOST,
          host: process.env.EMAIL_HOST,  // lowercase 'process'
           port: 587,
           secure: false,
   auth: {
          user: process.env.EMAIL_USER,
          pass: process.env.EMAIL_PASS
-  }
+  },
+  logger:true,
+  debug:true
       })
 
   //Sent email verification
-  /*await transporter.sendMail({
+  await transporter.sendMail({
     to:email,
     subject:'Verify Your Account',
     html:  `<div style="font-family:Arial; padding:20px;">
@@ -74,11 +79,6 @@ const link = `${process.env.WEB_URL}/user/verify/${token}`;
        <p>${link}</p>
     </div>`
   });
-}catch(error){
-  console.log('sender error',error);
-  return next({status:500,message:"email sender error"});
-} */
-
 
   res.status(201).json({
     success:true,
