@@ -1,22 +1,22 @@
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
-import './signup.css';
-import { Link } from 'react-router-dom';
-import { useAuth } from './Authcontext.jsx';
-import { useNavigate, useLocation } from 'react-router-dom';
-import Snackbar from '@mui/material/Snackbar';
-import Alert from '@mui/material/Alert';
-import { useState, useEffect } from 'react';
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+import "./signup.css";
+import { Link } from "react-router-dom";
+import { useAuth } from "./Authcontext.jsx";
+import { useNavigate, useLocation } from "react-router-dom";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
+import { useState, useEffect } from "react";
 
 export default function Login() {
-  const [value, setValue] = useState({ email: '', password: '' });
-  const [msg, setMsg] = useState('');
-  const [alert, setAlert] = useState('');
+  const [value, setValue] = useState({ email: "", password: "" });
+  const [msg, setMsg] = useState("");
+  const [alert, setAlert] = useState("");
   const [open, setOpen] = useState(false);
 
-  const url = 'https://fullstack-weather-copy-production.up.railway.app/user/login';
+  const url = `${import.meta.env.VITE_SERVER_URI}/user/login`;
   const { login } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -26,13 +26,13 @@ export default function Login() {
     if (location.state?.message) {
       setAlert(location.state.message);
       setOpen(true);
-      window.history.replaceState({}, document.title, '/'); // remove message from URL state
+      window.history.replaceState({}, document.title, "/"); // remove message from URL state
     }
   }, [location.state]);
 
   // Handle form input changes
   function editing(evt) {
-    setValue(prev => ({ ...prev, [evt.target.name]: evt.target.value }));
+    setValue((prev) => ({ ...prev, [evt.target.name]: evt.target.value }));
   }
 
   // Handle form submit
@@ -40,27 +40,26 @@ export default function Login() {
     evt.preventDefault();
     try {
       const result = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(value),
       });
 
       const f_result = await result.json();
-      if(f_result.success && f_result.token){
+      if (f_result.success && f_result.token) {
         login(f_result.user, f_result.token);
-         navigate('/', { state: { message: 'You Are Logged In' } });
-      }else{
+        navigate("/", { state: { message: "You Are Logged In" } });
+      } else {
         setMsg(f_result.message);
       }
-     
     } catch (err) {
-      setMsg('Something went wrong!');
+      setMsg("Something went wrong!");
     }
   }
 
   // Handle closing the Snackbar
   const handleClose = (event, reason) => {
-    if (reason === 'clickaway') return; // ignore clickaway
+    if (reason === "clickaway") return; // ignore clickaway
     setOpen(false);
   };
 
@@ -71,11 +70,11 @@ export default function Login() {
         open={open}
         autoHideDuration={4000}
         onClose={handleClose}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
         <Alert
           severity="success"
-          sx={{ width: '100%' }}
+          sx={{ width: "100%" }}
           action={
             <IconButton
               aria-label="close"
@@ -112,12 +111,17 @@ export default function Login() {
           onChange={editing}
           className="inputField"
         />
-        <Link to='/forget'>Forget Password?</Link>
-        <Button variant="contained" size="small" type="submit" className="s-btn">
+        <Link to="/forget">Forget Password?</Link>
+        <Button
+          variant="contained"
+          size="small"
+          type="submit"
+          className="s-btn"
+        >
           Login
         </Button>
-        <br/>
-         <p>
+        <br />
+        <p>
           Don't have any Account? <Link to="/signup">Signup</Link>
         </p>
         {msg && <p className="s_error">{msg}</p>}
